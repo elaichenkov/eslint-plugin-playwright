@@ -98,3 +98,35 @@ Example of **correct** code for this rule:
 await page.click('button');
 ```
 
+### `no-skipped-test`
+
+Disallow usage of skip annotation (e.g `test.skip` or `test.describe.skip`).
+
+👎 Examples of <span style="color:red">**incorrect**</span> code for this rule:
+
+```js
+// Skipped test
+test.skip('should skip', () => {
+  // ...
+});
+
+// Skipped describe
+test.describe.skip('should skip', () => {
+  // ...
+});
+
+// Skipped conditional test
+test.skip(({ browserName }) => browserName !== 'chromium', 'Chromium only!');
+```
+
+👍 Example of <span style="color:green">**correct**</span> code for this rule:
+
+```js
+test.skip('should work', () => {
+  // ...
+});
+
+test.describe('should work too', () => {
+  // ...
+});
+```
