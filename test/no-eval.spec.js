@@ -1,13 +1,5 @@
-const { RuleTester } = require('eslint');
 const rule = require('../lib/rules/no-eval');
-
-RuleTester.setDefaultConfig({
-  parserOptions: {
-    ecmaVersion: 2018,
-  },
-});
-
-const wrapInTest = (input) => `test('verify noEval rule', async () => { ${input} })`;
+const { wrapInTest, runRuleTester } = require('../lib/utils/rule-tester');
 
 const invalid = (code) => ({
   code: wrapInTest(code),
@@ -18,7 +10,7 @@ const valid = (code) => ({
   code: wrapInTest(code),
 });
 
-new RuleTester().run('no-eval', rule, {
+runRuleTester('no-eval', rule, {
   invalid: [
     // $eval with no arguments as const
     invalid('const searchValue = await page.$eval("#search", el => el.value);'),
